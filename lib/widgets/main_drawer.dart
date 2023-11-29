@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  const MainDrawer({super.key, required this.onSelectScreen});
+
+  final void Function(String identifier) onSelectScreen;
+  // now in tabs.dart we will define a function which will be pointed by this function
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,41 @@ class MainDrawer extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          // we are using listtile widget to make our drawer have links so that when the item is tapped the drawer would redirect to different screen altogether
+          ListTile(
+            leading: Icon(
+              Icons.restaurant,
+              size: 26,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            title: Text(
+              'Meals',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 24,
+                  ),
+            ),
+            onTap: () {
+              onSelectScreen('meals');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              size: 26,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            title: Text(
+              'Filters',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 24,
+                  ),
+            ),
+            onTap: () {
+              onSelectScreen('filters');
+            },
           ),
         ],
       ),

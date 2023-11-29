@@ -46,6 +46,14 @@ class _TabScreen extends State<TabScreen> {
     }
   }
 
+  void _setScreen(String identifer) {
+    if (identifer == 'filters') {
+    } else {
+      // now we are already in the meals page hence we just need to close the drawer and go back to meals page
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen(
@@ -69,7 +77,9 @@ class _TabScreen extends State<TabScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
