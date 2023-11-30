@@ -5,6 +5,14 @@ import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 
+const kInitialFIlters = {
+  Filter.glutenFree: false,
+  Filter.lactoseFree: false,
+  Filter.vegan: false,
+  Filter.vegetarian: false,
+  // we have set the initial values to be false and they will be changed once the filters are applied and then pressed back
+};
+
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
   @override
@@ -16,6 +24,8 @@ class TabScreen extends StatefulWidget {
 class _TabScreen extends State<TabScreen> {
   int _selectedPageIndex = 0;
   final List<Meal> _favouriteMeals = [];
+
+  Map<Filter, bool> _selectedFilters = kInitialFIlters;
 
   void _selectPage(int index) {
     setState(() {
@@ -47,11 +57,19 @@ class _TabScreen extends State<TabScreen> {
     }
   }
 
-  void _setScreen(String identifer) {
+  void _setScreen(String identifer) async {
     Navigator.of(context).pop(); // this will close the drawer
     if (identifer == 'filters') {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: ((ctx) => FilterScreen())));
+      final result = await Navigator.of(context).push<
+          Map<Filter,
+              bool>>(MaterialPageRoute(
+          builder: ((ctx) =>
+              FilterScreen()))); // .push is told that it will get a map which has filter enum with boolean as key in it
+      print(result);
+      setState(() {
+        _selectedFilters = result ?? kInitialFIlters;
+        // hence if user does not select any filter and returns back the fallback values will be intial values set
+      });
     } else {
       // now we are already in the meals page hence we just need to close the drawer and go back to meals page
       Navigator.of(context).pop();
