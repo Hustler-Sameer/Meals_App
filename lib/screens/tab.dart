@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 
@@ -47,7 +48,10 @@ class _TabScreen extends State<TabScreen> {
   }
 
   void _setScreen(String identifer) {
+    Navigator.of(context).pop(); // this will close the drawer
     if (identifer == 'filters') {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: ((ctx) => FilterScreen())));
     } else {
       // now we are already in the meals page hence we just need to close the drawer and go back to meals page
       Navigator.of(context).pop();
