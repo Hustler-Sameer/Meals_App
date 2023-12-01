@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/filters.dart';
@@ -93,6 +94,17 @@ class _TabScreen extends State<TabScreen> {
     // this code has one problem i.e 2 appbars will be visible  1st fo tab page and 2nd will be of the page we are displaying
     // now we are removing app bar in categories screen
     // also in the meals screen we have made our title of appbar conditional
+
+    // ****** now sending filtered meals to display
+
+    final _availableMeals = dummyMeals.where(
+      (meal) {
+        if(_selectedFilters[Filter.glutenFree] && ) {
+          // _selectedFilters[Filter.glutenFree]  this checks if glutenFree filter is set and after 
+        }
+
+      },
+    );
 
     // TODO: implement build
     return Scaffold(
