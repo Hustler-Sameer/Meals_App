@@ -79,8 +79,27 @@ class _TabScreen extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _availableMeals = dummyMeals.where(
+      (meal) {
+        if (_selectedFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
+          // _selectedFilters[Filter.glutenFree]  this checks if glutenFree filter is set and after
+          return false;
+        }
+        if (_selectedFilters[Filter.lactoseFree]! && !meal.isLactoseFree) {
+          return false;
+        }
+        if (_selectedFilters[Filter.vegetarian]! && !meal.isVegetarian) {
+          return false;
+        }
+        if (_selectedFilters[Filter.vegan]! && !meal.isVegan) {
+          return false;
+        }
+        return true;
+      },
+    ).toList();
     Widget activePage = CategoriesScreen(
       onToggleFavourite: _toggleMealFavouriteStatus,
+      availableMeals: _availableMeals,
     );
     var activePageTitle = 'Categories';
 
@@ -96,15 +115,6 @@ class _TabScreen extends State<TabScreen> {
     // also in the meals screen we have made our title of appbar conditional
 
     // ****** now sending filtered meals to display
-
-    final _availableMeals = dummyMeals.where(
-      (meal) {
-        if(_selectedFilters[Filter.glutenFree] && ) {
-          // _selectedFilters[Filter.glutenFree]  this checks if glutenFree filter is set and after 
-        }
-
-      },
-    );
 
     // TODO: implement build
     return Scaffold(
